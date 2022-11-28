@@ -1,0 +1,23 @@
+# Read the source files
+read_verilog residual-design.v utils/dffsr.v
+
+# The top module is always named 'top_module'
+hierarchy -top top_module
+
+# Synthesize the design while flattening it
+
+synth -flatten
+opt_clean -purge
+
+techmap;
+
+# Split all buses into single wires (circuitgraph does not support busses)
+splitnets -format _;
+
+# Map all flip flops to the DFFSR cell
+dfflibmap -liberty utils/dffsr.lib;
+
+opt_clean -purge
+
+# Dump the final verilog
+write_verilog -noattr yosys-synth.v

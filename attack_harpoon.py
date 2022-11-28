@@ -1,3 +1,4 @@
+import os
 import argparse
 from pathlib import Path
 import circuitgraph as cg
@@ -23,7 +24,10 @@ def fix_affected_nodes(ck, node, parent_node, affected_nodes, already_visited):
     # print("already_visited: ", already_visited)
     
     # Stopping condition
-    if ((node in already_visited) or (ck.fanout(node) is set())):
+    # if ((node in already_visited) or (ck.fanout(node) is set())):
+    #     return affected_nodes, already_visited, ck
+
+    if ((ck.fanout(node) is set())):
         return affected_nodes, already_visited, ck
 
     already_visited.add(node)
@@ -90,7 +94,9 @@ def main(args):
     for dffsr in original_dffsr:
         ck.connect("reset", dffsr + ".R")
 
-    cg.to_file(ck, "original.v")
+    cg.to_file(ck, "residual-design.v")
+
+    os.system("./utils/postprocess.sh")
     
 
 if (__name__ == "__main__"):
