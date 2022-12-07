@@ -18,6 +18,8 @@ splitnets -format _;
 dfflibmap -liberty utils/dffsr.lib;
 
 opt_clean -purge
+rmports
+opt_clean -purge
 
 # Dump the final verilog
 write_verilog -noattr yosys-synth.v
