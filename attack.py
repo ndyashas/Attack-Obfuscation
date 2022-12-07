@@ -116,7 +116,7 @@ def main(args):
 
 if (__name__ == "__main__"):
     
-    parser = argparse.ArgumentParser(description = "Command line arguments for the tool attacking HARPOON obfuscated designs.")
+    parser = argparse.ArgumentParser(description = "Command line arguments for the tool attacking HARPOON or SANSCrypt obfuscated designs.")
 
     parser.add_argument("-f", "--netlist_file",
                         required = True,
